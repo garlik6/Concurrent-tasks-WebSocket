@@ -1,13 +1,9 @@
 package com.example.priorityqueue.messagingstompwebsocket;
 
-
-import com.example.priorityqueue.PriorityQueueApplication;
+import com.example.priorityqueue.Service;
 import com.example.priorityqueue.model.Response;
 import com.example.priorityqueue.model.Task;
-import com.example.priorityqueue.taskExecutor.TaskScheduler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -21,17 +17,16 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class ResponseController {
     @Autowired
-    private TaskScheduler taskScheduler;
+    Service service;
 
     @MessageMapping("/hello")
     @SendToUser("/queue/results")
     @Async("CustomAsyncExecutor")
     public CompletableFuture<Response> response(@Payload Task task, Principal user) throws InterruptedException {
-        taskScheduler.scheduleTask(task);
-        Thread.sleep(task.getDuration() * 1000L);
-        return CompletableFuture.completedFuture(new Response("TASK COMPLETED: " + HtmlUtils.htmlEscape(task.getName()) +
-                ", DURATION: " + HtmlUtils.htmlEscape(Integer.toString(task.getDuration())) +
-                ", PRIORITY: " + HtmlUtils.htmlEscape(task.getPriority().toString())
-        ));
+        long n = service.calculate(task.getDuration());
+        return CompletableFuture.completedFuture(
+                new Response("TASK COMPLETED: " + HtmlUtils.htmlEscape(task.getName()) +
+                        ", RESULT: " + n)
+        );
     }
 }

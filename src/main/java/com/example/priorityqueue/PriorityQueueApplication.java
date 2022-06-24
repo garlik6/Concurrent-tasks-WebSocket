@@ -1,8 +1,4 @@
 package com.example.priorityqueue;
-
-
-import com.example.priorityqueue.taskExecutor.TaskScheduler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableScheduling
 @EnableAsync
 public class PriorityQueueApplication {
-    @Autowired
-    TaskScheduler taskScheduler = new TaskScheduler();
+
     public static void main(String[] args) {
         SpringApplication.run(PriorityQueueApplication.class, args);
     }

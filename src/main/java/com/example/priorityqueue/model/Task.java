@@ -1,6 +1,5 @@
 package com.example.priorityqueue.model;
 
-import com.example.priorityqueue.model.Priority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,21 +11,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task implements  Serializable, Runnable {
+public class Task  {
     private int duration;
-    private boolean isResponseRequired;
-    private Priority priority;
     private String name;
-
-
-    @Override
-    public void run() {
-        System.out.println("Task:" + name +
-                " Priority:" + priority);
-        try {
-            Thread.sleep(1000L * duration); // to simulate actual execution time
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
