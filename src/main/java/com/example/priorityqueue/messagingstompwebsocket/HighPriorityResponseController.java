@@ -13,19 +13,18 @@ import org.springframework.web.util.HtmlUtils;
 
 import java.time.LocalTime;
 
+
 import java.security.Principal;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
-public class ResponseController {
+public class HighPriorityResponseController {
     @Autowired
     Service service;
-
-    @MessageMapping("/hello/false")
+    @MessageMapping("/hello/true")
     @SendToUser("/queue/results")
-    @Async("CustomAsyncExecutor")
+    @Async("CustomAsyncExecutor1")
     public CompletableFuture<Response> response(@Payload Task task, Principal user) throws InterruptedException {
-
         LocalTime now = LocalTime.now();
         long n = service.calculate(task.getDuration());
         return CompletableFuture.completedFuture(

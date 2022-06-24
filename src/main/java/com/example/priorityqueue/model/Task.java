@@ -14,4 +14,5 @@ import java.io.Serializable;
 public class Task  {
     private int duration;
     private String name;
+    private boolean priority;
 }
