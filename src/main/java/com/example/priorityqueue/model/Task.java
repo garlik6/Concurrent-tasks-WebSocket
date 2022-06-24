@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Task implements  Serializable, Runnable {
     private int duration;
     private boolean isResponseRequired;
-    private int priority;
+    private Priority priority;
     private String name;
 
 

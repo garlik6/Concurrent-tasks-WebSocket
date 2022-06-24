@@ -1,5 +1,6 @@
 package com.example.priorityqueue.taskExecutor;
 import com.example.priorityqueue.model.Task;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -9,14 +10,15 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 @Service
 public class TaskScheduler {
-    private final ExecutorService priorityJobPoolExecutor;
-    private final PriorityBlockingQueue<Task> priorityQueue;
-
+    private  ExecutorService priorityJobPoolExecutor;
+    private PriorityBlockingQueue<Task> priorityQueue;
+    private ExecutorService priorityJobScheduler
+            = Executors.newSingleThreadExecutor();
     public TaskScheduler() {
-        priorityJobPoolExecutor = Executors.newFixedThreadPool(2);
+        priorityJobPoolExecutor = Executors.newFixedThreadPool(1);
         priorityQueue = new PriorityBlockingQueue<Task>(
-               10, Comparator.comparing(Task::getPriority));
-        ExecutorService priorityJobScheduler = Executors.newSingleThreadExecutor();
+               10,
+                Comparator.comparing(Task::getPriority));
         priorityJobScheduler.execute(() -> {
             while (true) {
                 try {

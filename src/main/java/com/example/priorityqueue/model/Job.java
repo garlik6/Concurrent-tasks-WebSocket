@@ -1,16 +1,19 @@
 package com.example.priorityqueue.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Job implements Runnable {
     private String jobName;
     private JobPriority jobPriority;
 
     private int duration;
+
 
     @Override
     public void run() {
