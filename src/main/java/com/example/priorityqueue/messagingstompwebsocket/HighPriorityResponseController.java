@@ -28,7 +28,7 @@ public class HighPriorityResponseController {
         LocalTime now = LocalTime.now();
         long n = service.calculate(task.getDuration());
         return CompletableFuture.completedFuture(
-                new Response("<b>TASK COMPLETED: </b>" + HtmlUtils.htmlEscape(task.getName()) + "<b>,Started AT: </b>" + now +"\n" +
+                new Response("<b>TASK COMPLETED: </b>" + HtmlUtils.htmlEscape(task.getName())+
                         ", <b>RESULT</b>: " + n + ", <b>HIGH PRIORITY?</b>:" + task.isPriority())
         );
     }
