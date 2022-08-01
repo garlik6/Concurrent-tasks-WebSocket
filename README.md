@@ -3,7 +3,7 @@ Cient-server communication via STOMP messaging protocol over WebSocket.
 Client can create requests to calculate a Fibonacci number with high or low priority.
 And on the server side there are two thread pools one for every priority. 
 Leveraging @Async annotation and its customization for configuring capacity of the queue and
-number of threads in pools
+number of threads in pools.
 
 ````java
     private Executor getExecutor() {
